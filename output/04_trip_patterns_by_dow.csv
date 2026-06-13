@@ -1,0 +1,8 @@
+day_of_week,is_weekend,trips,avg_duration_min,avg_distance_km
+Monday,False,575517,15.52,2.05
+Tuesday,False,579028,14.45,2.09
+Wednesday,False,628288,14.97,2.11
+Thursday,False,591839,14.75,2.09
+Friday,False,593475,16.32,2.08
+Saturday,True,643789,20.64,2.24
+Sunday,True,556136,20.59,2.18

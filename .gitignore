@@ -1,0 +1,29 @@
+# --- Data (never commit large data files to git) ---------------------------
+# The raw downloads and cleaned Parquet are reproducible by running the
+# pipeline, so we keep them out of version control. Only code + results go up.
+data/raw/
+data/processed/
+*.zip
+*.csv.gz
+
+# Keep the small CSV summaries and charts in output/ so reviewers can see
+# results without running anything, but ignore any bulky intermediate dumps.
+output/**/_SUCCESS
+output/**/.crc
+
+# --- Python ----------------------------------------------------------------
+.venv/
+venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# --- Spark -----------------------------------------------------------------
+spark-warehouse/
+metastore_db/
+derby.log
+
+# --- OS / editor -----------------------------------------------------------
+.DS_Store
+.vscode/
+.idea/

@@ -1,0 +1,11 @@
+time_of_day,member_casual,trips,avg_duration_min
+Overnight (0-5),casual,61678,20.85
+Overnight (0-5),member,72109,11.86
+Morning Peak (6-9),casual,167038,19.32
+Morning Peak (6-9),member,553553,11.33
+Midday (10-15),casual,602283,27.8
+Midday (10-15),member,859314,12.65
+Evening Peak (16-19),casual,488603,22.87
+Evening Peak (16-19),member,910064,13.2
+Evening (20-23),casual,186444,21.4
+Evening (20-23),member,266986,12.8

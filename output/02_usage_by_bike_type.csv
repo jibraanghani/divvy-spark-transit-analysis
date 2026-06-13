@@ -1,0 +1,7 @@
+rideable_type,member_casual,trips,pct_of_all_trips,avg_duration_min,avg_distance_km
+classic_bike,member,1749485,41.97,13.43,1.94
+classic_bike,casual,964944,23.15,28.99,2.09
+electric_bike,member,890869,21.37,10.96,2.45
+electric_bike,casual,515831,12.38,15.82,2.27
+electric_scooter,casual,25271,0.61,11.5,1.47
+electric_scooter,member,21672,0.52,8.03,1.54

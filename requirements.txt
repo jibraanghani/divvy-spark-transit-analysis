@@ -1,0 +1,6 @@
+# Python dependencies for the Divvy transit-analytics pipeline.
+# Install into a virtual environment with:  pip install -r requirements.txt
+pyspark==3.5.1      # Apache Spark engine + Spark SQL (distributed processing)
+pandas==2.3.3       # small-data handling for chart prep / CSV exports
+matplotlib==3.9.2   # static charts for the analysis report
+requests==2.32.3    # download monthly trip files from the S3 endpoint

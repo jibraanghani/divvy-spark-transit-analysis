@@ -1,0 +1,26 @@
+route,start_station_name,end_station_name,trips,avg_duration_min,avg_distance_km,member_pct
+Streeter Dr & Grand Ave -> Streeter Dr & Grand Ave,Streeter Dr & Grand Ave,Streeter Dr & Grand Ave,9067,40.63,0.0,7.3
+DuSable Lake Shore Dr & Monroe St -> DuSable Lake Shore Dr & Monroe St,DuSable Lake Shore Dr & Monroe St,DuSable Lake Shore Dr & Monroe St,7447,36.51,0.0,7.7
+Calumet Ave & 33rd St -> State St & 33rd St,Calumet Ave & 33rd St,State St & 33rd St,5919,4.21,0.66,93.0
+State St & 33rd St -> Calumet Ave & 33rd St,State St & 33rd St,Calumet Ave & 33rd St,5913,4.23,0.65,94.5
+DuSable Lake Shore Dr & Monroe St -> Streeter Dr & Grand Ave,DuSable Lake Shore Dr & Monroe St,Streeter Dr & Grand Ave,5692,25.22,1.32,7.5
+Ellis Ave & 60th St -> Ellis Ave & 55th St,Ellis Ave & 60th St,Ellis Ave & 55th St,5437,5.53,1.02,73.1
+Ellis Ave & 60th St -> University Ave & 57th St,Ellis Ave & 60th St,University Ave & 57th St,5187,5.42,0.72,76.9
+Ellis Ave & 55th St -> Ellis Ave & 60th St,Ellis Ave & 55th St,Ellis Ave & 60th St,5137,5.36,1.02,74.7
+Michigan Ave & Oak St -> Michigan Ave & Oak St,Michigan Ave & Oak St,Michigan Ave & Oak St,4977,48.82,0.0,10.7
+University Ave & 57th St -> Ellis Ave & 60th St,University Ave & 57th St,Ellis Ave & 60th St,4826,5.35,0.72,81.7
+Millennium Park -> Millennium Park,Millennium Park,Millennium Park,3400,43.78,0.0,6.6
+Dusable Harbor -> Dusable Harbor,Dusable Harbor,Dusable Harbor,3386,36.35,0.0,12.6
+Streeter Dr & Grand Ave -> DuSable Lake Shore Dr & Monroe St,Streeter Dr & Grand Ave,DuSable Lake Shore Dr & Monroe St,3119,25.95,1.32,13.3
+Montrose Harbor -> Montrose Harbor,Montrose Harbor,Montrose Harbor,2899,47.64,0.01,21.5
+Loomis St & Lexington St -> Morgan St & Polk St,Loomis St & Lexington St,Morgan St & Polk St,2842,5.21,0.86,91.2
+Dusable Harbor -> Streeter Dr & Grand Ave,Dusable Harbor,Streeter Dr & Grand Ave,2715,25.0,0.59,12.4
+Streeter Dr & Grand Ave -> DuSable Lake Shore Dr & North Blvd,Streeter Dr & Grand Ave,DuSable Lake Shore Dr & North Blvd,2615,23.09,2.48,18.2
+Shedd Aquarium -> Streeter Dr & Grand Ave,Shedd Aquarium,Streeter Dr & Grand Ave,2559,32.23,2.8,6.5
+DuSable Lake Shore Dr & North Blvd -> DuSable Lake Shore Dr & North Blvd,DuSable Lake Shore Dr & North Blvd,DuSable Lake Shore Dr & North Blvd,2532,39.62,0.0,17.3
+University Ave & 57th St -> Kimbark Ave & 53rd St,University Ave & 57th St,Kimbark Ave & 53rd St,2518,7.48,0.99,74.2
+University Ave & 57th St -> Lake Park Ave & 56th St,University Ave & 57th St,Lake Park Ave & 56th St,2504,6.17,1.02,73.2
+Shedd Aquarium -> DuSable Lake Shore Dr & Monroe St,Shedd Aquarium,DuSable Lake Shore Dr & Monroe St,2495,19.26,1.53,9.8
+Morgan St & Polk St -> Loomis St & Lexington St,Morgan St & Polk St,Loomis St & Lexington St,2472,5.5,0.86,91.4
+Theater on the Lake -> Theater on the Lake,Theater on the Lake,Theater on the Lake,2324,45.39,0.01,20.8
+Streeter Dr & Grand Ave -> Michigan Ave & Oak St,Streeter Dr & Grand Ave,Michigan Ave & Oak St,2319,25.57,1.38,15.8
