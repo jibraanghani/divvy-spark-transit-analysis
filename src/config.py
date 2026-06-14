@@ -52,6 +52,23 @@ S3_BASE_URL = f"https://{S3_BUCKET}.s3.amazonaws.com"
 # File name pattern on S3, e.g. "202401-divvy-tripdata.zip".
 FILE_TEMPLATE = "{month}-divvy-tripdata.zip"
 
+# ---------------------------------------------------------------------------
+# Our own AWS data lake (created for this project). The curated Parquet is
+# uploaded here so Spark can read it straight from S3 via the s3a:// connector,
+# exactly as it would on an EMR/Glue cluster in production.
+# Override with the DIVVY_S3_BUCKET env var to point at a different bucket.
+# ---------------------------------------------------------------------------
+S3_LAKE_BUCKET = os.environ.get("DIVVY_S3_BUCKET", "divvy-transit-lake-821269906059")
+S3_LAKE_REGION = os.environ.get("DIVVY_S3_REGION", "us-east-2")
+S3_RAW_URI = f"s3a://{S3_LAKE_BUCKET}/raw"
+S3_CURATED_URI = f"s3a://{S3_LAKE_BUCKET}/curated/trips"
+
+# Hadoop-AWS connector versions that match the Hadoop bundled with PySpark 3.5.
+_HADOOP_AWS_PACKAGES = (
+    "org.apache.hadoop:hadoop-aws:3.3.4,"
+    "com.amazonaws:aws-java-sdk-bundle:1.12.262"
+)
+
 # Months to process. Default: all of 2024 (~5.9 million trips). To run a quick
 # smoke test, shorten this list (e.g. ["202401", "202402"]).
 MONTHS = [
@@ -112,5 +129,38 @@ def get_spark(app_name: str):
     )
     spark = builder.getOrCreate()
     # Keep the console focused on our output, not Spark's internal logging.
+    spark.sparkContext.setLogLevel("ERROR")
+    return spark
+
+
+def get_spark_s3(app_name: str):
+    """
+    Build a SparkSession that can read/write Amazon S3 via the s3a:// scheme.
+
+    Adds the hadoop-aws connector and tells it to authenticate with the AWS
+    credentials already configured on this machine (the `aws configure` profile
+    in ~/.aws/credentials, or standard AWS_* environment variables). Credentials
+    are never hard-coded here.
+    """
+    from pyspark.sql import SparkSession
+
+    spark = (
+        SparkSession.builder
+        .appName(app_name)
+        .master("local[*]")
+        .config("spark.driver.memory", "4g")
+        .config("spark.sql.shuffle.partitions", "16")
+        .config("spark.sql.session.timeZone", "America/Chicago")
+        # Pull the S3 connector jars from Maven on first run (cached afterwards).
+        .config("spark.jars.packages", _HADOOP_AWS_PACKAGES)
+        # Use the standard AWS credential chain (env vars -> ~/.aws/credentials).
+        .config("spark.hadoop.fs.s3a.aws.credentials.provider",
+                "com.amazonaws.auth.DefaultAWSCredentialsProviderChain")
+        .config("spark.hadoop.fs.s3a.endpoint",
+                f"s3.{S3_LAKE_REGION}.amazonaws.com")
+        .config("spark.hadoop.fs.s3a.impl",
+                "org.apache.hadoop.fs.s3a.S3AFileSystem")
+        .getOrCreate()
+    )
     spark.sparkContext.setLogLevel("ERROR")
     return spark

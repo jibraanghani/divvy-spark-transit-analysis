@@ -47,11 +47,10 @@ them into an operational plan — see
         docs/recommendations.md  (route optimization)
 ```
 
-**Local ↔ AWS mapping.** The pipeline runs entirely on a laptop, but every
-stage has a one-to-one cloud equivalent, so it lifts to AWS with no code changes
-to the Spark logic:
+**Local ↔ AWS mapping.** The pipeline runs on a laptop, but every stage has a
+one-to-one cloud equivalent:
 
-| This repo (local)              | Production on AWS                          |
+| This repo (local)              | On AWS                                     |
 |--------------------------------|--------------------------------------------|
 | `data/raw/` landing zone       | `s3://<bucket>/raw/`                        |
 | `data/processed/` Parquet      | `s3://<bucket>/curated/` (Parquet)         |
@@ -59,8 +58,13 @@ to the Spark logic:
 | Spark SQL on a temp view       | Spark SQL on EMR, or **Athena** over S3    |
 | CSV/PNG in `output/`           | S3 results + **QuickSight** dashboards     |
 
-The source data already lives on S3; pointing Spark at `s3a://` paths with the
-`hadoop-aws` connector is the only change needed to run fully in the cloud.
+**This mapping is implemented, not just hypothetical.** The cleaned dataset is
+uploaded to a real S3 bucket (`src/upload_to_s3.py`), and
+[`src/05_analyze_on_s3.py`](src/05_analyze_on_s3.py) runs Spark SQL reading the
+curated Parquet **directly from `s3a://`** via the `hadoop-aws` connector — the
+same code that would run on an EMR/Glue cluster, where only the driver location
+changes. Credentials come from the standard AWS credential chain, never the
+source.
 
 ---
 
@@ -68,7 +72,8 @@ The source data already lives on S3; pointing Spark at `s3a://` paths with the
 - **Apache Spark 3.5** (PySpark) — distributed cleaning + transformation
 - **Spark SQL** — all analytics expressed as SQL (`sql/`)
 - **Parquet** — columnar curated storage, partitioned by month
-- **Amazon S3** — data source (public Divvy bucket)
+- **Amazon S3** — source data (public Divvy bucket) **and** the project's own
+  curated data lake, queried by Spark via the `hadoop-aws` (`s3a://`) connector
 - **pandas + matplotlib** — result export and charts
 - **Python 3.9**, **Java 17** (Spark runtime)
 
@@ -98,6 +103,21 @@ python src/02_clean.py               # Spark cleaning  -> curated Parquet
 python src/03_analyze.py             # Spark SQL        -> output/*.csv
 python src/04_visualize.py           # charts           -> output/figures/*.png
 ```
+
+### Running on AWS S3 (optional)
+
+```bash
+# Authenticate once with your own AWS account
+aws configure                        # access key, secret, region (us-east-2)
+
+# Push the data lake to S3, then run Spark SQL directly against it
+python src/upload_to_s3.py           # local -> s3://<bucket>/{raw,curated}/
+python src/05_analyze_on_s3.py       # Spark reads s3a:// and runs the analysis
+```
+
+Set the target bucket with the `DIVVY_S3_BUCKET` environment variable (default
+is defined in `src/config.py`). The S3 connector jars are fetched automatically
+on first run.
 
 **Requirements:** Java 17 must be installed (Spark 3.5 does not support Java 21+).
 On macOS: `brew install openjdk@17`. `src/config.py` auto-detects the Homebrew
@@ -150,7 +170,9 @@ divvy-spark-transit-analysis/
 │   ├── 01_ingest.py       # COLLECT  : download + unzip from S3
 │   ├── 02_clean.py        # CLEAN    : Spark data-quality pipeline -> Parquet
 │   ├── 03_analyze.py      # ANALYZE  : run sql/*.sql, export CSV results
-│   └── 04_visualize.py    # VISUALIZE: charts from the CSV results
+│   ├── 04_visualize.py    # VISUALIZE: charts from the CSV results
+│   ├── upload_to_s3.py    # AWS      : sync the data lake to S3
+│   └── 05_analyze_on_s3.py# AWS      : Spark SQL reading curated data from s3a://
 ├── sql/                   # 10 Spark SQL analyses (usage, patterns, demand, routes)
 ├── output/                # CSV result tables + figures/ PNG charts
 ├── docs/
