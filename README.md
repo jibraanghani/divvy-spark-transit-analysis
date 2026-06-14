@@ -1,11 +1,11 @@
 # Chicago Divvy Transit Analytics — Spark + AWS
 
-End-to-end data pipeline that **collects, cleans, and analyzes ~5.9M Chicago
-Divvy bike-share trips (2024)** with **Apache Spark** and **Spark SQL**, then
-turns the results into **data-driven route-optimization recommendations**.
+I built an end-to-end data pipeline that collects, cleans, and analyzes ~5.9M Chicago
+Divvy bike-share trips (2024) with Apache Spark and Spark SQL, then
+turns the results into data-driven route-optimization recommendations.
 
 The project mirrors a cloud data-lake workflow: raw trip files are ingested from
-a public **Amazon S3** bucket into a raw zone, processed by Spark into a curated
+a public Amazon S3 bucket into a raw zone, processed by Spark into a curated
 Parquet zone, and queried with SQL to study bike usage, trip patterns,
 time-of-day demand, and route/station activity.
 
@@ -15,11 +15,9 @@ time-of-day demand, and route/station activity.
 
 ## Why this project
 
-Bike-share operators win or lose on **where the bikes are**. A bike at an empty
-station is lost revenue; a full dock turns away a returning rider. This pipeline
-quantifies the demand and the structural imbalances in the network and converts
+Bike-share operators provide the best service when bikes are docked where they are needed most. A bike at an empty station is lost revenue; a full dock turns away a returning rider. This pipeline quantifies the demand and the structural imbalances in the network and converts
 them into an operational plan — see
-**[docs/recommendations.md](docs/recommendations.md)**.
+[docs/recommendations.md](docs/recommendations.md).
 
 ---
 
@@ -163,7 +161,7 @@ divvy-spark-transit-analysis/
 ---
 
 ## Data-quality summary
-Of 5,860,568 raw 2024 records, **4,168,072 (71.1%) passed cleaning**. Removed:
+Of 5,860,568 raw 2024 records, 4,168,072 (71.1%) passed cleaning. Removed:
 rows missing essential fields (notably dockless e-bike trips with no station,
 ~28%), duplicate ride ids, trips shorter than 1 minute or longer than 24 hours,
 and GPS coordinates outside the Chicago service area. Each rule's row impact is
