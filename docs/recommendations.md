@@ -4,9 +4,9 @@
 **Method:** Apache Spark cleaning pipeline + Spark SQL analysis (see `sql/`).
 
 This memo translates the analysis in `output/` into operational recommendations
-for the three levers a bike-share operator actually controls: **where bikes are
-positioned (rebalancing)**, **when crews and capacity are deployed**, and **how
-the network is grown and marketed**.
+for the three levers a bike-share operator actually controls: where bikes are
+positioned (rebalancing), when crews and capacity are deployed, and **how
+the network is grown and marketed.
 
 ---
 
@@ -20,9 +20,9 @@ the network is grown and marketed**.
 | Summer | 1,566,740 | 18.8 | 42.4% |
 | Fall   | 1,225,057 | 15.4 | 36.0% |
 
-Summer carries **3.7× the volume of winter**, and the rider mix shifts toward
-**casual (leisure/visitor)** riders, who take longer trips concentrated on the
-lakefront. Peak month (August, 537,903 trips) is **4.8×** the trough (January,
+Summer carries 3.7× the volume of winter, and the rider mix shifts toward
+casual (leisure/visitor) riders, who take longer trips concentrated on the
+lakefront. Peak month (August, 537,903 trips) is 4.8× the trough (January,
 110,874).
 
 ### 1.2 Weekday demand is a sharp double commute peak
